@@ -45,8 +45,21 @@ It provides authentication and user management functionalities with secure API h
 
 ---
 
-## Installation
+## Installation Guide (Step by Step)
 
+Follow these steps to run the project locally:
+
+---
+
+### 1. Install Node.js
+
+Make sure you have Node.js installed.
+
+Check version:
+
+```bash
+node -v
+npm -v
 ### Clone the repository
 
 ```bash
