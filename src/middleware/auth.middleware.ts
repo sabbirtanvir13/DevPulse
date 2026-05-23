@@ -114,9 +114,6 @@ const auth = () => {
   return async (req: Request, res: Response, next: NextFunction) => {
     const token = req.headers.authorization;
 
-    console.log("AUTH MIDDLEWARE HIT");
-    console.log("TOKEN:", token);
-
     if (!token) {
       return res.status(401).json({
         success: false,
@@ -139,7 +136,7 @@ const auth = () => {
         config.secret as string
       ) as JwtPayload;
 
-      console.log("DECODED:", decoded);
+
 
       const userData = await pool.query(
         `SELECT * FROM users WHERE email=$1`,

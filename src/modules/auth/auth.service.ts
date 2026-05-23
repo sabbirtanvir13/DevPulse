@@ -43,7 +43,7 @@ const loginUserIntoDB = async (payload: {
     email: user.email,
   };
 
-  const accessToken = jwt.sign(
+  const token = jwt.sign(
     jwtPayload,
   config.secret as string,
     {
@@ -52,7 +52,7 @@ const loginUserIntoDB = async (payload: {
   );
 
   return {
-    accessToken,
+    token,
     user: {
       id: user.id,
       name: user.name,

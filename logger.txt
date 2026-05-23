@@ -186,4 +186,26 @@ Method ->PATCH Time ->1779474941238 Url/api/issues/1
 Method ->GET Time ->1779474953798 Url/api/issues
   
 Method ->DELETE Time ->1779475096437 Url/api/issues/1
+  
+Method ->POST Time ->1779515380331 Url/api/auth/signup
+  
+Method ->POST Time ->1779515515816 Url/api/auth/login
+  
+Method ->POST Time ->1779516343195 Url/api/auth/login
+  
+Method ->POST Time ->1779516453878 Url/api/issues
+  
+Method ->POST Time ->1779516471979 Url/api/issues
+  
+Method ->GET Time ->1779516652927 Url/api/issues
+  
+Method ->GET Time ->1779516797828 Url/api/issues/1
+  
+Method ->PATCH Time ->1779516896810 Url/api/issues/1
+  
+Method ->DELETE Time ->1779516911045 Url/api/issues/1
+  
+Method ->POST Time ->1779519137646 Url/api/auth/login
+  
+Method ->POST Time ->1779520841247 Url/api/auth/login
  
