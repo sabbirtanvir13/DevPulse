@@ -3,7 +3,7 @@
 
 import type { Request, Response } from "express";
 import { authService } from "./auth.service";
-import { userService } from "../user/user.service";
+
 
 const loginUser = async (req: Request, res: Response) => {
   try {
