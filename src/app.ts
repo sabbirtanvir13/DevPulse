@@ -5,6 +5,8 @@ import logger from './middleware/logger';
 import { issueRouter } from './modules/Issues/issue.route';
 import cors from "cors";
 import globalErrorHandler from './middleware/globalErrorHandler';
+
+
 const app: Application = express()
 
 app.use(express.json());
