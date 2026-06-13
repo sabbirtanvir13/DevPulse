@@ -106,60 +106,6 @@ class IssueController {
     }
   };
 
-  // // UPDATE ISSUE
-  // updateIssue = async (req: Request, res: Response) => {
-  //   try {
-
-  //     const id = Number(req.params.id);
-
-  //     const user = req.user;
-
-  //     const issue = await issueService.getIssueById(id);
-
-  //     if (!issue) {
-  //       return res.status(404).json({
-  //         success: false,
-  //         message: "Issue not found",
-  //       });
-  //     }
-
-  //     // contributor rule
-  //     if (user.role === "contributor") {
-
-  //       // own issue only
-  //       if (issue.reporter_id !== user.id) {
-  //         return res.status(403).json({
-  //           success: false,
-  //           message: "You can update only your own issues",
-  //         });
-  //       }
-
-  //       // only open issue
-  //       if (issue.status !== "open") {
-  //         return res.status(403).json({
-  //           success: false,
-  //           message: "Only open issues can be updated",
-  //         });
-  //       }
-  //     }
-
-  //     const result = await issueService.updateIssue(id, req.body);
-
-  //     return res.status(200).json({
-  //       success: true,
-  //       message: "Issue updated successfully",
-  //       data: result,
-  //     });
-
-  //   } catch (error: any) {
-
-  //     return res.status(500).json({
-  //       success: false,
-  //       message: error.message || "Server error",
-  //     });
-  //   }
-  // };
-
 
 
   // UPDATE ISSUE

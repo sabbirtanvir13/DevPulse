@@ -150,27 +150,7 @@ class IssueService {
     return result.rows[0];
   };
 
-  // // UPDATE ISSUE
-  // updateIssue = async (id: number, payload: any) => {
 
-  //   const { title, description, type } = payload;
-
-  //   const result = await pool.query(
-  //     `
-  //     UPDATE issues
-  //     SET
-  //     title = $1,
-  //     description = $2,
-  //     type = $3,
-  //     updated_at = NOW()
-  //     WHERE id = $4
-  //     RETURNING *
-  //     `,
-  //     [title, description, type, id]
-  //   );
-
-  //   return result.rows[0];
-  // };
 
 
 // UPDATE ISSUE
