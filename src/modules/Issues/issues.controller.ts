@@ -21,6 +21,27 @@ class IssueController {
         });
       }
 
+      if (typeof title !== "string" || title.trim().length === 0 || title.trim().length > 150) {
+        return res.status(400).json({
+          success: false,
+          message: "Title cannot exceed 150 characters",
+        });
+      }
+
+      if (typeof description !== "string" || description.trim().length < 20) {
+        return res.status(400).json({
+          success: false,
+          message: "Description must be at least 20 characters",
+        });
+      }
+
+      if (typeof type !== "string" || !["bug", "feature_request"].includes(type)) {
+        return res.status(400).json({
+          success: false,
+          message: "Invalid issue type",
+        });
+      }
+
       const result = await issueService.createIssue({
         title,
         description,
@@ -28,10 +49,12 @@ class IssueController {
         reporter_id: user.id,
       });
 
+      const issueWithReporter = await issueService.getSingleIssue(result.id);
+
       return res.status(201).json({
         success: true,
         message: "Issue created successfully",
-        data: result,
+        data: issueWithReporter,
       });
 
     } catch (error: any) {
@@ -76,10 +99,10 @@ class IssueController {
 
       const id = Number(req.params.id);
 
-      if (isNaN(id)) {
-        return res.status(400).json({
+      if (isNaN(id) || id <= 0 || !Number.isInteger(id)) {
+        return res.status(404).json({
           success: false,
-          message: "Invalid issue id",
+          message: "Issue not found",
         });
       }
 
@@ -114,10 +137,10 @@ updateIssue = async (req: Request, res: Response) => {
 
     const id = Number(req.params.id);
 
-    if (isNaN(id)) {
-      return res.status(400).json({
+    if (isNaN(id) || id <= 0 || !Number.isInteger(id)) {
+      return res.status(404).json({
         success: false,
-        message: "Invalid issue id",
+        message: "Issue not found",
       });
     }
 
@@ -129,6 +152,14 @@ updateIssue = async (req: Request, res: Response) => {
       return res.status(404).json({
         success: false,
         message: "Issue not found",
+      });
+    }
+
+    // Role validation
+    if (user.role !== "maintainer" && user.role !== "contributor") {
+      return res.status(403).json({
+        success: false,
+        message: "You do not have permission to update issues",
       });
     }
 
@@ -152,34 +183,32 @@ updateIssue = async (req: Request, res: Response) => {
       }
     }
 
-    const { title, description, type } = req.body;
+    const { title, description, type, status } = req.body;
 
     // validation
     if (
       title !== undefined &&
-      title.trim().length > 150
+      (typeof title !== "string" || title.trim().length === 0 || title.trim().length > 150)
     ) {
       return res.status(400).json({
         success: false,
-        message:
-          "Title cannot exceed 150 characters",
+        message: "Title cannot exceed 150 characters",
       });
     }
 
     if (
       description !== undefined &&
-      description.trim().length < 20
+      (typeof description !== "string" || description.trim().length < 20)
     ) {
       return res.status(400).json({
         success: false,
-        message:
-          "Description must be at least 20 characters",
+        message: "Description must be at least 20 characters",
       });
     }
 
     if (
       type !== undefined &&
-      !["bug", "feature_request"].includes(type)
+      (typeof type !== "string" || !["bug", "feature_request"].includes(type))
     ) {
       return res.status(400).json({
         success: false,
@@ -187,15 +216,27 @@ updateIssue = async (req: Request, res: Response) => {
       });
     }
 
-    const result = await issueService.updateIssue(
+    if (
+      status !== undefined &&
+      (typeof status !== "string" || !["open", "in_progress", "resolved"].includes(status))
+    ) {
+      return res.status(400).json({
+        success: false,
+        message: "Invalid issue status",
+      });
+    }
+
+    await issueService.updateIssue(
       id,
       req.body
     );
 
+    const issueWithReporter = await issueService.getSingleIssue(id);
+
     return res.status(200).json({
       success: true,
       message: "Issue updated successfully",
-      data: result,
+      data: issueWithReporter,
     });
 
   } catch (error: any) {

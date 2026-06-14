@@ -160,6 +160,7 @@ updateIssue = async (
     title?: string;
     description?: string;
     type?: string;
+    status?: string;
   }
 ) => {
 
@@ -173,6 +174,7 @@ updateIssue = async (
   const description =
     payload.description ?? issue.description;
   const type = payload.type ?? issue.type;
+  const status = payload.status ?? issue.status;
 
   const result = await pool.query(
     `
@@ -181,11 +183,12 @@ updateIssue = async (
       title = $1,
       description = $2,
       type = $3,
+      status = $4,
       updated_at = NOW()
-    WHERE id = $4
+    WHERE id = $5
     RETURNING *
     `,
-    [title, description, type, id]
+    [title, description, type, status, id]
   );
 
   return result.rows[0];
