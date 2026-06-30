@@ -1,7 +1,7 @@
 # Dev Pulse
 
 ## Live URL
-https://dev-pulse.vercel.app
+https://dev-pulse-alpha-ebon.vercel.app/
 
 ---
 
