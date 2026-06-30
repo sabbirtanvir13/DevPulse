@@ -49,12 +49,10 @@ class IssueController {
         reporter_id: user.id,
       });
 
-      const issueWithReporter = await issueService.getSingleIssue(result.id);
-
       return res.status(201).json({
         success: true,
         message: "Issue created successfully",
-        data: issueWithReporter,
+        data: result,
       });
 
     } catch (error: any) {
@@ -81,6 +79,7 @@ class IssueController {
 
       return res.status(200).json({
         success: true,
+        message: "Issues retrieved successfully",
         data: result,
       });
 
@@ -117,6 +116,7 @@ class IssueController {
 
       return res.status(200).json({
         success: true,
+        message: "Issue retrieved successfully",
         data: result,
       });
 
@@ -226,17 +226,15 @@ updateIssue = async (req: Request, res: Response) => {
       });
     }
 
-    await issueService.updateIssue(
+    const updatedIssue = await issueService.updateIssue(
       id,
       req.body
     );
 
-    const issueWithReporter = await issueService.getSingleIssue(id);
-
     return res.status(200).json({
       success: true,
       message: "Issue updated successfully",
-      data: issueWithReporter,
+      data: updatedIssue,
     });
 
   } catch (error: any) {

@@ -16,7 +16,10 @@ const auth = () => {
       });
     }
 
-    const jwtToken = token.split(" ")[1];
+    let jwtToken = token;
+    if (token.startsWith("Bearer ")) {
+      jwtToken = token.split(" ")[1];
+    }
 
     if (!jwtToken) {
       return res.status(401).json({
@@ -33,15 +36,12 @@ const auth = () => {
 
 
 
-      // const userData = await pool.query(
-      //   `SELECT * FROM users WHERE email=$1`,
-      //   [decoded.email]
-      // );
+
 
       const userData = await pool.query(
-  `SELECT * FROM users WHERE id=$1`,
-  [decoded.id]
-);
+        `SELECT * FROM users WHERE id=$1`,
+        [decoded.id]
+      );
 
       if (userData.rows.length === 0) {
         return res.status(401).json({

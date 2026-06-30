@@ -88,7 +88,7 @@ class IssueService {
       description: issue.description,
       type: issue.type,
       status: issue.status,
-      reporter: reporterMap.get(issue.reporter_id),
+      reporter: reporterMap.get(issue.reporter_id) || null,
       created_at: issue.created_at,
       updated_at: issue.updated_at,
     }));
@@ -121,7 +121,7 @@ class IssueService {
       [issue.reporter_id]
     );
 
-    const reporter = reporterResult.rows[0];
+    const reporter = reporterResult.rows[0] || null;
 
     return {
       id: issue.id,
